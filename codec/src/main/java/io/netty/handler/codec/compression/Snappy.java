@@ -607,7 +607,7 @@ public final class Snappy {
         Crc32c crc32 = new Crc32c();
         try {
             crc32.update(data, offset, length);
-            return maskChecksum((int) crc32.getValue());
+            return maskChecksum(crc32.getValue());
         } finally {
             crc32.reset();
         }
@@ -656,6 +656,6 @@ public final class Snappy {
      * @return The masked checksum
      */
     static int maskChecksum(int checksum) {
-        return (checksum >> 15 | checksum << 17) + 0xa282ead8;
+        return (int)((checksum >> 15 | checksum << 17) + 0xa282ead8);
     }
 }
